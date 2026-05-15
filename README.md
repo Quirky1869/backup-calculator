@@ -9,6 +9,9 @@
 
 The tool allows you to simulate the impact of complex retention policies by combining different cycle types (Full, Incremental, Differential) while taking into account critical variables such as daily change rates and data compression
 
+![Example](./_images/example.png)
+![Example-d](./_images/example-d.png)
+
 ### Key Features
 - **Multi-Type Simulation**: Configure full, differential, and incremental backups simultaneously
 - **Advanced Settings**: Adjust the daily change rate (%) and apply compression presets based on data type (Videos, DB, System, etc.)
