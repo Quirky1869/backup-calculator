@@ -16,6 +16,11 @@ The tool allows you to simulate the impact of complex retention policies by comb
 - **PDF Export**: Generate a professional report ready to be sent to clients or management
 - **Modern Interface**: "Cyber-Industrial" design with dark/light mode support and multilingual capabilities (FR/EN)
 
+> [!WARNING]  
+> 1 month of retention is equal to 30 days  
+> 4 weeks of retention is equal to 28 days  
+> 31 days of retention is therefore greater than 1 month  
+
 ### Technologies Used
 - HTML5 / CSS3 (CSS Variables & Grid)
 - JavaScript (Vanilla)
@@ -44,6 +49,12 @@ L'outil permet de simuler l'impact de politiques de rétention complexes en comb
 - **Calcul de Rétention** : Visualisez le cumul de stockage sur plusieurs mois
 - **Export PDF** : Générez un rapport professionnel prêt à être envoyé à vos clients ou à votre direction
 - **Interface Moderne** : Design "Cyber-Industrial" avec support du mode sombre/clair et multilingue (FR/EN)
+
+> [!WARNING]  
+> 1 mois de rétention est = à 30 jours  
+> 4 semaines de rétention sont = à 28 jours  
+> 31 jours de rétention sont donc supérieur à 1 mois  
+
 
 ### Technologies Utilisées
 - HTML5 / CSS3 (Variables CSS & Grid)
