@@ -43,6 +43,7 @@
 }
 :root { --mono:"Space Mono",monospace; --sans:"DM Sans",sans-serif; }
 
+/* html { font-size: 16px; transition: font-size 0.2s; } */
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body {
@@ -7681,8 +7682,6 @@ body {
           animation-delay: 3047ms;
 }
 
-
-
 /* ===== HEADER ===== */
 header {
   position:relative; z-index:10;
@@ -7729,9 +7728,10 @@ header h1 {
   background:var(--input-bg); border:1px solid var(--border);
   color:var(--muted); width:30px; height:30px; border-radius:5px;
   cursor:pointer; display:flex; align-items:center; justify-content:center;
-  transition:all .15s; font-size:.85rem; flex-shrink:0;
+  transition:all .15s; font-size:.85rem; flex-shrink:0; font-family:var(--mono);
 }
 .icon-btn:hover { border-color:var(--accent); color:var(--accent); }
+.icon-btn img { width:18px; height:18px; border-radius:50%; object-fit:cover; }
 
 /* Color picker popover */
 .color-popover {
@@ -7740,7 +7740,7 @@ header h1 {
 .color-popover-panel {
   display:none; position:absolute; top:calc(100% + 8px); right:0;
   background:var(--surface); border:1px solid var(--border);
-  border-radius:8px; padding:1rem; z-index:100; width:200px;
+  border-radius:8px; padding:1rem; z-index:100; width:220px;
   box-shadow:var(--shadow);
 }
 .color-popover-panel.open { display:block; }
@@ -7749,8 +7749,15 @@ header h1 {
   letter-spacing:.1em; text-transform:uppercase; margin-bottom:.5rem; display:block;
 }
 .rgb-row { display:flex; align-items:center; gap:.4rem; margin-bottom:.4rem; }
-.rgb-row span { font-family:var(--mono); font-size:.65rem; color:var(--muted); width:10px; }
-.rgb-row input[type=range] { flex:1; height:4px; padding:0; }
+.rgb-row span { font-family:var(--mono); font-size:.65rem; color:var(--muted); width:15px; }
+.rgb-row input[type=range] { flex:1; height:4px; padding:0; accent-color:var(--accent); }
+.rgb-row input[type=number], .rgb-row input[type=text] {
+  width: 50px; background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text); font-family: var(--mono); font-size: .65rem;
+  padding: .2rem; border-radius: 3px; text-align: center;
+}
+.rgb-row input[type=text] { width: 70px; }
+
 .rgb-preview {
   width:100%; height:24px; border-radius:4px; margin-top:.5rem;
   border:1px solid var(--border);
@@ -7771,6 +7778,15 @@ header h1 {
 }
 .color-btn-apply:hover { opacity:.85; }
 .color-btn-reset:hover { border-color:var(--accent); color:var(--accent); }
+
+.color-history-wrap { margin-top: 1rem; }
+.color-history { display: flex; gap: 0.4rem; }
+.history-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  cursor: pointer; border: 1px solid var(--border);
+  transition: transform 0.2s;
+}
+.history-dot:hover { transform: scale(1.15); }
 
 /* ===== LAYOUT ===== */
 .page-wrap { position:relative; z-index:1; }
@@ -7820,6 +7836,22 @@ label {
   display:block; font-size:.76rem;
   color:var(--muted); margin-bottom:.3rem; font-weight:500;
 }
+
+.clearable-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.clear-btn {
+  position: absolute; right: 8px;
+  background: none; border: none; color: var(--muted);
+  cursor: pointer; font-size: 1.1rem; padding: 2px;
+  opacity: 0; transition: opacity 0.2s, color 0.2s;
+}
+.clearable-input:hover .clear-btn,
+.clearable-input input:focus + .clear-btn { opacity: 1; }
+.clear-btn:hover { color: var(--accent); }
+
 input[type="text"], input[type="number"], select {
   width:100%; background:var(--input-bg);
   border:1px solid var(--border); color:var(--text);
@@ -7835,7 +7867,8 @@ select:focus {
 }
 .input-with-unit { display:flex; gap:.4rem; }
 .input-with-unit input { flex:1; }
-.input-with-unit select { width:88px; flex-shrink:0; }
+/* Modified width to 110px for fixing text truncation */
+.input-with-unit select { width:110px; flex-shrink:0; }
 .unit-tag {
   background:var(--surface2); border:1px solid var(--border);
   color:var(--muted); font-family:var(--mono); font-size:.7rem;
@@ -8078,7 +8111,7 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
 
 @media(max-width:1100px){
   .container{grid-template-columns:1fr 400px;}
-  .col-left-bottom { display:none; } /* shown merged in col-left */
+  .col-left-bottom { display:none; }
 }
 @media(max-width:800px){
   .container{grid-template-columns:1fr;padding:1rem;}
@@ -8089,6 +8122,7 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
 </style>
 </head>
 <body>
+
 
 <!-- Particles -->
 <div id="particle-canvas">
@@ -8195,6 +8229,10 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
 
 </div>
 
+<!-- <div id="particle-canvas">
+  <div class="circle-container"><div class="circle"></div></div>
+</div> -->
+
 <header>
   <img class="logo-img" id="headerLogo" src="./_images/white-logo.png" alt="Logo"
     onerror="this.src='https://raw.githubusercontent.com/Quirky1869/backup-calculator/main/_images/white-logo.png'"
@@ -8202,7 +8240,7 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
   <div class="header-titles">
     <h1>Backup Calculator</h1>
     <div class="header-sub">
-      <span>v2.0 — <span data-i18n="header_sub">Calcul de stockage</span></span>
+      <span>v2.1 — <span data-i18n="header_sub">Calcul de stockage</span></span>
       <a class="github-link" href="https://github.com/Quirky1869" target="_blank" rel="noopener">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -8212,28 +8250,38 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
     </div>
   </div>
   <div class="header-controls">
-    <!-- Color picker -->
+    
+    <button class="icon-btn" onclick="adjustFontSize(-1)" title="Réduire la police">A-</button>
+    <button class="icon-btn" onclick="adjustFontSize(1)" title="Agrandir la police">A+</button>
+
     <div class="color-popover" id="colorPopover">
       <button class="icon-btn" onclick="toggleColorPicker()" title="Couleur accent" id="colorPickerBtn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="17.5" r="2.5"/>
-          <path d="M17 18a5 5 0 00-10 0"/>
-          <path d="M6.5 6.5c5 2 9.5 5 11 11"/>
-        </svg>
+        <img src="./_images/rgb.png" alt="RGB" onerror="this.src='https://raw.githubusercontent.com/Quirky1869/backup-calculator/main/_images/rgb.png'">
       </button>
       <div class="color-popover-panel" id="colorPanel">
         <label data-i18n="color_accent">Couleur accent</label>
         <div class="rgb-row">
           <span>R</span>
-          <input type="range" id="cr" min="0" max="255" value="168" oninput="updateColorPreview()">
+          <input type="range" id="cr" min="0" max="255" value="168" oninput="syncColor('r', false)">
+          <input type="number" id="cr-num" min="0" max="255" value="168" oninput="syncColor('r', true)">
         </div>
         <div class="rgb-row">
           <span>G</span>
-          <input type="range" id="cg" min="0" max="255" value="85" oninput="updateColorPreview()">
+          <input type="range" id="cg" min="0" max="255" value="85" oninput="syncColor('g', false)">
+          <input type="number" id="cg-num" min="0" max="255" value="85" oninput="syncColor('g', true)">
         </div>
         <div class="rgb-row">
           <span>B</span>
-          <input type="range" id="cb" min="0" max="255" value="247" oninput="updateColorPreview()">
+          <input type="range" id="cb" min="0" max="255" value="247" oninput="syncColor('b', false)">
+          <input type="number" id="cb-num" min="0" max="255" value="247" oninput="syncColor('b', true)">
+        </div>
+        <div class="rgb-row">
+          <span style="width:25px">HEX</span>
+          <input type="text" id="chex" value="#A855F7" onchange="syncColor('hex', true)">
+        </div>
+        <div class="color-history-wrap">
+          <label>Historique</label>
+          <div class="color-history" id="colorHistory"></div>
         </div>
         <div class="rgb-preview" id="colorPreview"></div>
         <div class="color-btns">
@@ -8250,7 +8298,6 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
   </div>
 </header>
 
-<!-- Reset modal -->
 <div class="modal-overlay" id="resetModal">
   <div class="modal-box">
     <h3 data-i18n="modal_title">Réinitialiser</h3>
@@ -8265,9 +8312,7 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
 <div class="page-wrap">
 <div class="container">
 
-  <!-- COL 1 : Client + Source + Backup types -->
   <div>
-    <!-- Client -->
     <div class="panel" style="margin-bottom:1.2rem">
       <div class="panel-header">
         <div class="dot dot-purple"></div>
@@ -8276,12 +8321,14 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
       <div class="panel-body" style="padding:.9rem 1.2rem">
         <div class="field" style="margin-bottom:0">
           <label data-i18n="label_client_name">Nom du client</label>
-          <input type="text" id="clientName" data-i18n-placeholder="placeholder_client" placeholder="ex: Acme Corp">
+          <div class="clearable-input">
+            <input type="text" id="clientName" data-i18n-placeholder="placeholder_client" placeholder="ex: Acme Corp">
+            <button class="clear-btn" onclick="clearClient()" title="Effacer">✕</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Source -->
     <div class="panel" style="margin-bottom:1.2rem">
       <div class="panel-header">
         <div class="dot dot-blue"></div>
@@ -8330,7 +8377,6 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
       </div>
     </div>
 
-    <!-- Backup types -->
     <div class="panel">
       <div class="panel-header">
         <div class="dot dot-orange"></div>
@@ -8401,7 +8447,6 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
     </div>
   </div>
 
-  <!-- COL 2 : Compression + Actions -->
   <div>
     <div class="panel" style="margin-bottom:1.2rem">
       <div class="panel-header">
@@ -8451,7 +8496,6 @@ input[type="range"] { flex:1; accent-color:var(--accent); cursor:pointer; }
     </div>
   </div>
 
-  <!-- COL 3 : Results -->
   <div class="results-panel">
     <div class="panel" id="results-panel">
       <div class="panel-header">
@@ -8515,8 +8559,8 @@ const T = {
     res_source:"Données source", res_compression:"Compression",
     res_volume:"→ x{r} volume", res_breakdown:"Répartition par type",
     res_cumul:"Cumul de stockage sur {n} {u}",
-    res_info:"Modification journalière estimée\u00a0: {s}/jour. Les sauvegardes différentielles grossissent progressivement jusqu'au prochain full.",
-    daily_hint:"Modification journalière estimée\u00a0: {s}/jour",
+    res_info:"Modification journalière estimée : {s}/jour. Les sauvegardes différentielles grossissent progressivement jusqu'au prochain full.",
+    daily_hint:"Modification journalière estimée : {s}/jour",
     ret_unit_month:"mois", ret_unit_week:"semaine", ret_unit_day:"jour",
     client_label:"Client",
     months:["Jan","Fév","Mar","Avr","Mai","Jun","Jul","Aoû","Sep","Oct","Nov","Déc"],
@@ -8559,6 +8603,8 @@ const T = {
 
 let currentLang = "fr";
 let lastResults = null;
+let currentFontSizeOffset = 0; // Font size adjuster
+let colorHistory = []; // Historique couleurs
 
 // ---- Default accent (dark / light) ----
 const DEFAULT_ACCENT_DARK  = {r:168,g:85,b:247};
@@ -8579,9 +8625,10 @@ function savePrefs() {
   const prefs = {
     lang: currentLang,
     theme: isDark ? "dark" : "light",
+    fontSizeOffset: currentFontSizeOffset,
+    history: colorHistory,
     accent_dark:  { r: parseInt(document.getElementById("cr").value), g: parseInt(document.getElementById("cg").value), b: parseInt(document.getElementById("cb").value) },
   };
-  // We store light accent too if user set it in light mode
   const stored = loadPrefs();
   if (isDark) prefs.accent_light = stored.accent_light || DEFAULT_ACCENT_LIGHT;
   else { prefs.accent_light = prefs.accent_dark; prefs.accent_dark = stored.accent_dark || DEFAULT_ACCENT_DARK; }
@@ -8600,14 +8647,23 @@ function applyStoredPrefs() {
     updateLogo(p.theme);
   }
   if (p.lang) { currentLang = p.lang; }
+  if (p.fontSizeOffset !== undefined) {
+    currentFontSizeOffset = p.fontSizeOffset;
+    document.documentElement.style.fontSize = (16 + currentFontSizeOffset) + 'px';
+  }
+  if (p.history) {
+    colorHistory = p.history;
+    renderColorHistory();
+  }
+  
   // Restore accent
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
   const acc = isDark ? (p.accent_dark || DEFAULT_ACCENT_DARK) : (p.accent_light || DEFAULT_ACCENT_LIGHT);
   document.getElementById("cr").value = acc.r;
   document.getElementById("cg").value = acc.g;
   document.getElementById("cb").value = acc.b;
+  syncColor('r', false); syncColor('g', false); syncColor('b', false);
   applyAccentColorFromRGB(acc.r, acc.g, acc.b, false);
-  updateColorPreview();
 }
 
 // ============================================================
@@ -8652,7 +8708,6 @@ function applyTranslations() {
   document.querySelectorAll("[data-i18n-preset]").forEach(el => {
     el.innerHTML = t(el.getAttribute("data-i18n-preset")).replace("\n", "<br>");
   });
-  // Language buttons
   document.getElementById("btn-fr").classList.toggle("active", currentLang==="fr");
   document.getElementById("btn-en").classList.toggle("active", currentLang==="en");
 }
@@ -8667,22 +8722,76 @@ function toggleTheme() {
   html.setAttribute("data-theme", newTheme);
   document.getElementById("themeBtn").textContent = wasDark ? "☀️" : "🌙";
   updateLogo(newTheme);
-  // Swap accent to stored value for new theme
   const p = loadPrefs();
   const acc = wasDark ? (p.accent_light || DEFAULT_ACCENT_LIGHT) : (p.accent_dark || DEFAULT_ACCENT_DARK);
   document.getElementById("cr").value = acc.r;
   document.getElementById("cg").value = acc.g;
   document.getElementById("cb").value = acc.b;
+  syncColor('r', false); syncColor('g', false); syncColor('b', false);
   applyAccentColorFromRGB(acc.r, acc.g, acc.b, false);
-  updateColorPreview();
+  savePrefs();
+}
+
+// ============================================================
+// FONT SIZE SCALING
+// ============================================================
+function adjustFontSize(delta) {
+  // Limites: -3 à +4 par rapport à 16px
+  currentFontSizeOffset = Math.max(-3, Math.min(4, currentFontSizeOffset + delta));
+  document.documentElement.style.fontSize = (16 + currentFontSizeOffset) + 'px';
   savePrefs();
 }
 
 // ============================================================
 // ACCENT COLOR
 // ============================================================
-function hexFromRGB(r,g,b){ return "#"+[r,g,b].map(v=>v.toString(16).padStart(2,"0")).join(""); }
+function hexFromRGB(r,g,b){ return "#"+[r,g,b].map(v=>v.toString(16).padStart(2,"0").toUpperCase()).join(""); }
+function hexToRgb(hex) {
+  let h = hex.replace('#', '');
+  if(h.length === 3) h = h.split('').map(x => x + x).join('');
+  if(h.length !== 6) return null;
+  const num = parseInt(h, 16);
+  if(isNaN(num)) return null;
+  return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+}
 function lighten(r,g,b,f){ return [Math.min(255,r+f),Math.min(255,g+f),Math.min(255,b+f)]; }
+
+function syncColor(source, isFromInput) {
+  let r, g, b;
+  
+  if (source === 'hex') {
+    const val = document.getElementById("chex").value;
+    const rgb = hexToRgb(val);
+    if (rgb) {
+      document.getElementById("cr").value = rgb.r;
+      document.getElementById("cg").value = rgb.g;
+      document.getElementById("cb").value = rgb.b;
+      document.getElementById("cr-num").value = rgb.r;
+      document.getElementById("cg-num").value = rgb.g;
+      document.getElementById("cb-num").value = rgb.b;
+    }
+  } else {
+    // Sync slider with number
+    const slider = document.getElementById("c" + source);
+    const num = document.getElementById("c" + source + "-num");
+    
+    if (isFromInput) {
+      let val = parseInt(num.value);
+      if(isNaN(val)) val = 0;
+      val = Math.max(0, Math.min(255, val));
+      slider.value = val;
+      num.value = val;
+    } else {
+      num.value = slider.value;
+    }
+    
+    r = parseInt(document.getElementById("cr").value);
+    g = parseInt(document.getElementById("cg").value);
+    b = parseInt(document.getElementById("cb").value);
+    document.getElementById("chex").value = hexFromRGB(r, g, b);
+  }
+  updateColorPreview();
+}
 
 function updateColorPreview() {
   const r=parseInt(document.getElementById("cr").value);
@@ -8695,6 +8804,13 @@ function applyAccentColor() {
   const r=parseInt(document.getElementById("cr").value);
   const g=parseInt(document.getElementById("cg").value);
   const b=parseInt(document.getElementById("cb").value);
+  
+  const hex = hexFromRGB(r,g,b);
+  colorHistory = colorHistory.filter(c => hexFromRGB(c.r,c.g,c.b) !== hex);
+  colorHistory.unshift({r,g,b});
+  if(colorHistory.length > 5) colorHistory.pop();
+  renderColorHistory();
+  
   applyAccentColorFromRGB(r,g,b,true);
 }
 
@@ -8707,7 +8823,6 @@ function applyAccentColorFromRGB(r,g,b,save) {
   style.setProperty("--accent-hover", hexHover);
   style.setProperty("--accent-glow", `rgba(${r},${g},${b},0.12)`);
   style.setProperty("--particle-color", hex);
-  // Update all particle circles
   document.querySelectorAll(".circle").forEach(c => {
     c.style.backgroundImage = `radial-gradient(${hex}, ${hex} 10%, rgba(${r},${g},${b},0) 56%)`;
   });
@@ -8720,12 +8835,29 @@ function resetAccentColor() {
   document.getElementById("cr").value = def.r;
   document.getElementById("cg").value = def.g;
   document.getElementById("cb").value = def.b;
-  updateColorPreview();
+  syncColor('r', false); syncColor('g', false); syncColor('b', false);
   applyAccentColorFromRGB(def.r, def.g, def.b, true);
 }
 
 function toggleColorPicker() {
   document.getElementById("colorPanel").classList.toggle("open");
+}
+
+function renderColorHistory() {
+  const container = document.getElementById("colorHistory");
+  container.innerHTML = colorHistory.map((c, i) => 
+    `<div class="history-dot" style="background:${hexFromRGB(c.r,c.g,c.b)}" onclick="loadHistoryColor(${i})" title="${hexFromRGB(c.r,c.g,c.b)}"></div>`
+  ).join('');
+}
+
+function loadHistoryColor(index) {
+  const c = colorHistory[index];
+  if(!c) return;
+  document.getElementById("cr").value = c.r;
+  document.getElementById("cg").value = c.g;
+  document.getElementById("cb").value = c.b;
+  syncColor('r', false); syncColor('g', false); syncColor('b', false);
+  applyAccentColorFromRGB(c.r, c.g, c.b, true);
 }
 
 // Close color picker on outside click
@@ -8734,8 +8866,22 @@ document.addEventListener("click", e => {
   if (!pop.contains(e.target)) document.getElementById("colorPanel").classList.remove("open");
 });
 
+// GLOBAL KEY LISTENER FOR ENTER
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
+    e.preventDefault();
+    calculate();
+  }
+});
+
+function clearClient() {
+  const input = document.getElementById("clientName");
+  input.value = "";
+  input.focus();
+}
+
 // ============================================================
-// RETENTION LABEL
+// RETENTION LABEL & 31-DAY LOGIC
 // ============================================================
 function updateRetentionLabel() {
   const unit = document.getElementById("retentionUnit").value;
@@ -8743,13 +8889,13 @@ function updateRetentionLabel() {
   document.getElementById("retentionUnitLabel").textContent = map[unit] || unit;
 }
 
-// Convert retention to months equivalent for calculations
-function retentionInMonths() {
+// Convert retention to total DAYS equivalent
+function retentionInDays() {
   const val = parseInt(document.getElementById("retention").value) || 1;
   const unit = document.getElementById("retentionUnit").value;
-  if (unit === "week")  return val / 4.33;
-  if (unit === "day")   return val / 30;
-  return val;
+  if (unit === "month") return val * 31;
+  if (unit === "week")  return val * 7;
+  return val; // day
 }
 
 function retentionUnitLabel() {
@@ -8819,10 +8965,12 @@ function formatSize(gb) {
   return              {val:gb.toFixed(2),          unit:"Go"};
 }
 function fmt(gb) { const s=formatSize(gb); return s.val+" "+s.unit; }
+
+// Fréquence rapportée à un mois (31 jours)
 function freqPerMonth(freq, period) {
   if (period==="month") return freq;
-  if (period==="week")  return freq*4.33;
-  if (period==="day")   return freq*30;
+  if (period==="week")  return freq*(31/7); // Précision modifiée (1 mois = 31 jours)
+  if (period==="day")   return freq*31;
   return freq;
 }
 
@@ -8860,7 +9008,8 @@ function stepComp(delta) {
 function calculate() {
   const dataGB        = toGB(parseFloat(document.getElementById("dataSize").value)||500, document.getElementById("dataSizeUnit").value);
   const changeRatePct = parseFloat(document.getElementById("changeRate").value)||5;
-  const retMonths     = retentionInMonths();
+  const totalDays     = retentionInDays();
+  const retMonths     = totalDays / 31; // Simplifie le calcul
   const retVal        = parseInt(document.getElementById("retention").value)||1;
   const retUnit       = document.getElementById("retentionUnit").value;
   const compPct       = parseFloat(document.getElementById("compRate").value)||0;
@@ -8885,7 +9034,7 @@ function calculate() {
     const perMonth=freqPerMonth(freq,period);
     diffCount=Math.round(perMonth*retMonths);
     const fullPerMonth=fullEnabled?freqPerMonth(parseFloat(document.getElementById("full-freq").value)||1,document.getElementById("full-period").value):1;
-    const avgDiff=dailyChange*(30/fullPerMonth)*0.5;
+    const avgDiff=dailyChange*(31/fullPerMonth)*0.5; // Utilisant 31 jours
     diffTotal=diffCount*avgDiff*compFactor;
   }
 
@@ -8895,11 +9044,10 @@ function calculate() {
     const period=document.getElementById("inc-period").value;
     const perMonth=freqPerMonth(freq,period);
     incCount=Math.round(perMonth*retMonths);
-    incTotal=incCount*(dailyChange*(30/perMonth))*compFactor;
+    incTotal=incCount*(dailyChange*(31/perMonth))*compFactor; // Utilisant 31 jours
   }
 
   const totalStorage=fullTotal+diffTotal+incTotal;
-  // Build timeline based on actual retention unit
   const timelineData=[];
   const steps = Math.min(retVal, 12);
   for (let i=1;i<=steps;i++)
@@ -9004,7 +9152,6 @@ function exportPDF() {
   const W=210, M=18;
   let y=0;
 
-  // Get current accent RGB
   const cr=parseInt(document.getElementById("cr").value);
   const cg=parseInt(document.getElementById("cg").value);
   const cb=parseInt(document.getElementById("cb").value);
@@ -9135,7 +9282,6 @@ window.addEventListener("load", () => {
   applyTranslations();
   updateRetentionLabel();
   updateDailyHint();
-  updateColorPreview();
   // Apply lang from prefs
   const p = loadPrefs();
   if (p.lang) {
