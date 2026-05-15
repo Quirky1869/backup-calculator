@@ -1,4 +1,4 @@
-# Backup Calculator 💾🔋
+# Backup Calculator
 
 ![Backup Calculator Cyberpunk](./_images/backup-calculator.jpeg)
 
@@ -58,4 +58,4 @@ The tool allows you to simulate the impact of complex retention policies by comb
 
 ---
 
-*Developed by with ❤️ by [Quirky](https://github.com/Quirky1869)*
+*Developed with ❤️ by [Quirky](https://github.com/Quirky1869)*
