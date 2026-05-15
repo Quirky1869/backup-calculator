@@ -1,16 +1,16 @@
 # Backup Calculator
 
-![Backup Calculator Cyberpunk](./_images/backup-calculator.jpeg)
+![Backup Calculator Cyberpunk](./_images/backup-calculator.png)  
 
 ## 🇺🇸 English
 
 ### Description
-**Backup Calculator** is a static web application designed to help system administrators and IT professionals quickly estimate the storage volume required for their backup strategies
+**Backup Calculator** is a static web application designed to help system administrators and IT professionals quickly estimate the storage volume required for their backup strategies  
 
-The tool allows you to simulate the impact of complex retention policies by combining different cycle types (Full, Incremental, Differential) while taking into account critical variables such as daily change rates and data compression
+The tool allows you to simulate the impact of complex retention policies by combining different cycle types (Full, Incremental, Differential) while taking into account critical variables such as daily change rates and data compression   
 
-![Example](./_images/example.png)
-![Example-d](./_images/example-d.png)
+![Example-w](./_images/example-w.png)  
+![Example-d](./_images/example-d.png)  
 
 ### Key Features
 - **Multi-Type Simulation**: Configure full, differential, and incremental backups simultaneously
@@ -20,9 +20,8 @@ The tool allows you to simulate the impact of complex retention policies by comb
 - **Modern Interface**: "Cyber-Industrial" design with dark/light mode support and multilingual capabilities (FR/EN)
 
 > [!WARNING]  
-> 1 month of retention is equal to 30 days  
+> 1 month of retention is equal to 31 days  
 > 4 weeks of retention is equal to 28 days  
-> 31 days of retention is therefore greater than 1 month  
 
 ### Technologies Used
 - HTML5 / CSS3 (CSS Variables & Grid)
@@ -35,16 +34,19 @@ The tool allows you to simulate the impact of complex retention policies by comb
 2. Open `backup-calculator.html` in any modern web browser
 3. No build step or server required
 
-*Developed with ❤️ by [Quirky](https://github.com/Quirky1869)*
+*Developed with ❤️ by [Quirky](https://github.com/Quirky1869)*  
 
-___
+___  
 
 ## 🇫🇷 Français
 
 ### Description
-**Backup Calculator** est une application web statique conçue pour aider les administrateurs système et les professionnels de l'informatique à estimer rapidement le volume de stockage nécessaire pour leurs stratégies de sauvegarde 
+**Backup Calculator** est une application web statique conçue pour aider les administrateurs système et les professionnels de l'informatique à estimer rapidement le volume de stockage nécessaire pour leurs stratégies de sauvegarde  
 
-L'outil permet de simuler l'impact de politiques de rétention complexes en combinant différents types de cycles (Complets, Incrémentiels, Différentiels) tout en prenant en compte des variables critiques comme le taux de modification quotidien et la compression des données
+L'outil permet de simuler l'impact de politiques de rétention complexes en combinant différents types de cycles (Complets, Incrémentiels, Différentiels) tout en prenant en compte des variables critiques comme le taux de modification quotidien et la compression des données  
+
+![Example-w-fr](./_images/example-w-fr.png)  
+![Example-d-fr](./_images/example-d-fr.png)  
 
 ### Fonctionnalités Clés
 - **Simulation Multi-Type** : Configurez des sauvegardes complètes, différentielles et incrémentielles simultanément
@@ -54,9 +56,8 @@ L'outil permet de simuler l'impact de politiques de rétention complexes en comb
 - **Interface Moderne** : Design "Cyber-Industrial" avec support du mode sombre/clair et multilingue (FR/EN)
 
 > [!WARNING]  
-> 1 mois de rétention est = à 30 jours  
-> 4 semaines de rétention sont = à 28 jours  
-> 31 jours de rétention sont donc supérieur à 1 mois  
+> 1 mois de rétention est égal à 31 jours  
+> 4 semaines de rétention sont égal à 28 jours  
 
 
 ### Technologies Utilisées
@@ -70,4 +71,4 @@ L'outil permet de simuler l'impact de politiques de rétention complexes en comb
 2. Ouvrez `backup-calculator.html` dans votre navigateur
 3. Pas besoin de build ou de serveur
 
-*Développé avec ❤️ par [Quirky](https://github.com/Quirky1869)*
+*Développé avec ❤️ par [Quirky](https://github.com/Quirky1869)*  
